@@ -14,6 +14,23 @@ const db = mongoose.connection;
 db.on("error", (e) => console.log(e));
 db.once("open", () => console.log("Successfully connected to database!"));
 
+// Middlewares
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
+
+app.use(session({
+    secret: 'movie secret key',
+    saveUninitialized: true,
+    resave: false,
+}));
+
+app.use((req, res, next) => {
+    res.locals.message = req.session.message;
+    delete req.session.message;
+    next();
+});
+
+
 // Mapping for root endpoint
 app.get("/", (req, res) => {
     res.send("Helloooo Moviesss");
