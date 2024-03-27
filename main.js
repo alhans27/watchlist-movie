@@ -30,6 +30,11 @@ app.use((req, res, next) => {
     next();
 });
 
+// Set Template Engine
+
+app.set('view engine', 'ejs');
+
+
 
 // Mapping for root endpoint
 app.get("/", (req, res) => {
