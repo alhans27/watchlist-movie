@@ -8,6 +8,12 @@ const app = express();
 // Setting the port
 const PORT = process.env.PORT || 4200;
 
+// DB Conenction
+mongoose.connect(process.env.DB_URI);
+const db = mongoose.connection;
+db.on("error", (e) => console.log(e));
+db.once("open", () => console.log("Successfully connected to database!"));
+
 // Mapping for root endpoint
 app.get("/", (req, res) => {
     res.send("Helloooo Moviesss");
