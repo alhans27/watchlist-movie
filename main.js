@@ -34,12 +34,8 @@ app.use((req, res, next) => {
 
 app.set('view engine', 'ejs');
 
-
-
-// Mapping for root endpoint
-app.get("/", (req, res) => {
-    res.send("Helloooo Moviesss");
-});
+// Mapping Route Prefix
+app.use("", require('./routes/routes'));
 
 // Run the Server
 app.listen(PORT, () => {
