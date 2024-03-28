@@ -5,10 +5,14 @@ const movieSchema = new mongoose.Schema({
         required: true,
     },
     year: {
-        type: Int,
+        type: String,
         required: true,
     },
     description: {
+        type: String,
+        required: true,
+    },
+    link: {
         type: String,
         required: true,
     },
