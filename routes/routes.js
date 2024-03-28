@@ -20,19 +20,24 @@ let upload = multer({
 
 // Routes
 router.get("/", (req, res) => {
-    res.render("index", {
-        title: 'Home Page',
-    })
+    Movie.find().exec()
+        .then((movies)=>{
+            res.render("index", {
+                title: 'Home Page',
+                movies: movies,
+            });
+        })
+        .catch((err)=>{
+            res.json({
+                message: err.message,
+            });
+        });
 });
 
 router.get("/add-movie", (req, res) => {
     res.render("add_movies", {
         title: 'Add Movie',
     })
-});
-
-router.get("/movies", (req, res) => {
-    res.send("All Movies");
 });
 
 router.post("/add", upload, (req, res) => {
