@@ -35,6 +35,23 @@ router.get("/", (req, res) => {
         });
 });
 
+// Route to Detail Movie Page
+router.get("/detail/:id", (req, res) => {
+    let id = req.params.id;
+    Movie.findById(id)
+        .then((movie)=>{
+            res.render("detail_movies", {
+                title: 'Detail Movie',
+                movie: movie,
+            });
+        })
+        .catch((err)=>{
+            res.json({
+                message: err.message,
+                type: 'danger',
+            });
+        });
+});
 
 // Route to Add Movie Page
 router.get("/add-movie", (req, res) => {
