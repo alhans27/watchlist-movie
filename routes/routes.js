@@ -126,4 +126,27 @@ router.post("/update/:id", upload, (req, res) => {
         });
 });
 
+// Route to Delete a Movie
+router.get("/delete/:id", (req, res) => {
+    let id = req.params.id;
+    Movie.findByIdAndDelete(id)
+        .then((result) => {
+            if (result.image != ""){
+                try {
+                    fs.unlinkSync("./uploads/" + result.image);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            req.session.message = {
+                type: 'info',
+                message: 'Successfully Delete a Movie!',
+            };
+            res.redirect("/");
+        })
+        .catch(err => {
+            res.json({message: err.message, type: 'danger'});
+        });
+});
+
 module.exports = router;
