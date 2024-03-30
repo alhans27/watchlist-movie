@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Movie = require("../models/movies");
 const multer = require("multer");
+const fs = require("fs");
 
 
 // Image Upload
@@ -18,7 +19,7 @@ let upload = multer({
     storage: storage,
 }).single("image");
 
-// Routes
+// Route to Homepage
 router.get("/", (req, res) => {
     Movie.find().exec()
         .then((movies)=>{
@@ -34,12 +35,15 @@ router.get("/", (req, res) => {
         });
 });
 
+
+// Route to Add Movie Page
 router.get("/add-movie", (req, res) => {
     res.render("add_movies", {
         title: 'Add Movie',
     })
 });
 
+// Route to Add New Movie
 router.post("/add", upload, (req, res) => {
     const movie = new Movie({
         title: req.body.title,
@@ -59,6 +63,67 @@ router.post("/add", upload, (req, res) => {
             .catch(err => {
                 res.json({message: err.message, type: 'danger'});
             });
+});
+
+// Route to Edit Movie Page
+router.get("/edit/:id", (req, res) => {
+    let id = req.params.id;
+    Movie.findById(id)
+        .then((movie)=>{
+            res.render("edit_movies", {
+                title: 'Update Movie',
+                movie: movie,
+            });
+        })
+        .catch((err)=>{
+            res.json({
+                message: err.message,
+                type: 'danger',
+            });
+        });
+});
+
+// Route to Update a Movie
+router.post("/update/:id", upload, (req, res) => {
+    let id = req.params.id;
+    let new_image = '';
+    let link = '';
+
+    if (req.file) {
+        new_image = req.file.filename;
+        try {
+            fs.unlinkSync("./uploads/" + req.body.old_image);
+        } catch (error) {
+            console.log(err);
+            
+        }
+    } else {
+        new_image = req.body.old_image;
+    }
+
+    if (req.body.link != "")
+    {
+        link = req.body.link;
+    } else {
+        link = "-";
+    }
+
+    Movie.findByIdAndUpdate(id, {
+        title: req.body.title,
+        year: req.body.year,
+        description: req.body.desc,
+        link: link,
+        image: new_image,
+    }).then(() => {
+            req.session.message = {
+                type: 'success',
+                message: 'Successfully Update a Movie!',
+            };
+            res.redirect("/");
+        })
+        .catch(err => {
+            res.json({message: err.message, type: 'danger'});
+        });
 });
 
 module.exports = router;
