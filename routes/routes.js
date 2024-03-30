@@ -35,6 +35,13 @@ router.get("/", (req, res) => {
         });
 });
 
+// Route to About App
+router.get("/about", (req, res) => {
+    res.render("about", {
+        title: 'About App Page',
+    });
+});
+
 // Route to Detail Movie Page
 router.get("/detail/:id", (req, res) => {
     let id = req.params.id;
