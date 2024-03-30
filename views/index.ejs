@@ -42,7 +42,7 @@
                                         <div class="d-flex justify-content-evenly m-2">
                                             <a href="/detail" class="p-2 m-2 text-white bg-success rounded-circle"><i class="fa-solid fa-share-from-square mx-1"></i></a>
                                             <a href="/edit/<%= movie._id %>" class="p-2 m-2 text-white bg-info rounded-circle"><i class="fa-solid fa-pen mx-1"></i></a>
-                                            <a href="/delete/<%= movie._id %>" class="p-2 m-2 text-white bg-danger rounded-circle"><i class="fa-solid fa-trash mx-1"></i></a>
+                                            <a href="/delete/<%= movie._id %>" class="p-2 m-2 text-white bg-danger rounded-circle" onclick="return confirm('Are you sure to delete this Movie?');"><i class="fa-solid fa-trash mx-1"></i></a>
                                         </div>
                                     </td>
                                 </tr>

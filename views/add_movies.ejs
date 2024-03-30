@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-body">
                   <h5 class="card-title mb-4 h2">Add a Movie</h5>
-                  <form action="/add" method="post" enctype="multipart/form-data">
+                  <form action="/add" method="post" enctype="multipart/form-data" onsubmit="return confirm('Are you sure want to add this Movie to your Watchlist?');">
                     <div class="mb-3">
                       <label for="inputTitle" class="form-label">Title of the Movie</label>
                       <input type="text" class="form-control" id="inputTitle" name="title" required>
@@ -27,12 +27,11 @@
                       <label for="formFileSm" class="form-label">Movie Poster</label>
                       <input class="form-control form-control-sm" id="formFileSm" type="file" name="image" required>
                     </div>
-                    <input type="submit" class="btn btn-primary" name="submit" value="Add Movie" />
+                    <input type="submit" class="btn btn-primary" value="Add Movie" />
                   </form>
                 </div>
               </div>
         </div>
     </div>
 </div>
-
 <%- include('layout/footer'); %>
