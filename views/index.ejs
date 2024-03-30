@@ -9,7 +9,11 @@
                     <strong><%= message.message %></strong>
                 </div>
                 <% } %>
-            <h1>My Watchlist Movies</h1>
+
+                <div class="my-4">
+                <h1>My Watchlist Movies</h1>
+                <a href="/add-movie" class="btn btn-warning mt-2">Add New Movie</a>
+            </div>
             <div class="table-responsive mt-4">
                 <% if (movies != "") { %>
                     <table class="table table-striped table-bordered">
