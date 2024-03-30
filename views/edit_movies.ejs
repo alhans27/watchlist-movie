@@ -1,0 +1,51 @@
+<%- include('layout/header'); %>
+
+<div class="container p-3">
+    <div class="row">
+        <div class="col-lg-6 mx-auto mt-4">
+            <% if (message) {%>
+                <div class="alert alert-dismissible fade show alert-<%= message.type %>" role="alert">
+                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong><%= message.message %></strong>
+                </div>
+                <% } %>
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title mb-4 p-2 h2 text-center bg-dark text-white">Update Movie "<%= movie.title %>"</h5>
+                  <form action="/update/<%= movie._id %>" method="post" enctype="multipart/form-data" onsubmit="return confirm('Are you sure want to update this Movie to your Watchlist?');" >
+                    <div class="mb-3 text-center">
+                      <img src="/<%= movie.image %>" alt="<%= movie.image %>" width="200px" class="img-thumbnail mx-auto">
+                    </div>
+                    <div class="mb-3">
+                      <label for="inputTitle" class="form-label">Title of the Movie</label>
+                      <input type="text" class="form-control" id="inputTitle" name="title" required value="<%= movie.title %>">
+                    </div>
+                    <div class="mb-3">
+                      <label for="inputYear" class="form-label">Year of the Movie</label>
+                      <input type="text" class="form-control" id="inputYear" name="year" required value="<%= movie.year %>">
+                    </div>
+                    <div class="mb-3">
+                      <label for="inputLink" class="form-label">Link to the Movie</label>
+                      <input type="text" class="form-control" id="inputLink" name="link" value="<%= movie.link %>">
+                    </div>
+                    <div class="mb-3">
+                      <label for="inputDesc" class="form-label">Description of the Movie</label>
+                      <textarea class="form-control" id="inputDesc" rows="3" name="desc" required><%= movie.description %></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="formFileSm" class="form-label">Movie Poster</label>
+                      <input class="form-control form-control-sm" id="formFileSm" type="file" name="image">
+                      <input type="hidden" name="old_image" value="<%= movie.image %>">
+                    </div>
+                    <div class="mb-3 d-flex justify-content-between">
+                      <input type="submit" class="btn btn-info" name="submit" value="Update a Movie" />
+                      <a href="/" class="btn btn-dark">Back to Home</a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+
+<%- include('layout/footer'); %>
